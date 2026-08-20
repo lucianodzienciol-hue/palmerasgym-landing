@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Palmeras Gym - Fuerza. Disciplina. Resultados</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "primary-fixed": "#a855f7",
+        "outline-variant": "#444932",
+        "outline": "#8f9378",
+        "on-surface": "#e4e2e1",
+        "surface": "#131313",
+        "on-secondary-container": "#511400",
+        "secondary-container": "#f97316",
+        "secondary": "#fdba74",
+        "surface-container": "#1f2020",
+        "surface-container-low": "#1b1c1c",
+        "surface-container-high": "#2a2a2a",
+        "surface-container-highest": "#353535",
+        "surface-variant": "#353535",
+        "background": "#131313",
+        "tertiary": "#facc15",
+        "on-background": "#e4e2e1",
+        "on-surface-variant": "#c5c9ac",
+        "error": "#ffb4ab",
+        "primary": "#ffffff"
+      },
+      borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+      spacing: { base: "4px", xs: "8px", sm: "16px", md: "24px", gutter: "20px", lg: "40px", xl: "64px", "2xl": "96px" },
+      fontFamily: { display: ["Montserrat"], body: ["Inter"] }
+    }
+  }
+}
+</script>
+<style>
+html { scroll-behavior: smooth; }
+body { background: #000; color: #e4e2e1; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+.material-symbols-outlined.fill { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+.text-gradient { background: linear-gradient(90deg, #a855f7, #f97316 55%, #facc15); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero-glow { position: absolute; border-radius: 50%; filter: blur(100px); opacity: .35; pointer-events: none; }
+.card { background: #121212; border: 1px solid #2D2D2D; border-radius: .75rem; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
+.card:hover { transform: translateY(-6px); border-color: #a855f7; box-shadow: 0 10px 40px rgba(168,85,247,.15); }
+.card-accent { background: linear-gradient(145deg, #a855f7, #7c3aed); }
+.btn-primary { background: linear-gradient(90deg, #a855f7, #7c3aed); box-shadow: 0 0 20px rgba(168,85,247,.35); transition: all .25s ease; }
+.btn-primary:hover { box-shadow: 0 0 35px rgba(168,85,247,.55); transform: translateY(-2px); }
+.btn-secondary { border: 1px solid #a855f7; color: #a855f7; transition: all .25s ease; }
+.btn-secondary:hover { background: rgba(168,85,247,.12); transform: translateY(-2px); }
+.btn-outline { border: 1px solid #444932; transition: all .25s ease; }
+.btn-outline:hover { border-color: #f97316; color: #f97316; }
+.nav-link { position: relative; color: #c5c9ac; transition: color .2s; }
+.nav-link:hover { color: #a855f7; }
+.nav-link::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 2px; background: linear-gradient(90deg, #a855f7, #f97316); transition: width .25s ease; }
+.nav-link:hover::after { width: 100%; }
+.nav-scrolled { background: rgba(0,0,0,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #2D2D2D; }
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.stat-number { font-family: 'Montserrat', sans-serif; font-weight: 800; }
+.category-badge { padding: 2px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.category-badge.fuerza { background: rgba(168,85,247,.15); color: #a855f7; }
+.category-badge.cardio { background: rgba(249,115,22,.15); color: #f97316; }
+.category-badge.flexibilidad { background: rgba(250,204,21,.15); color: #facc15; }
+.tabla-horario th { font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #8f9378; text-align: left; padding: 10px 12px; }
+.tabla-horario td { padding: 12px; font-size: 14px; border-top: 1px solid #2D2D2D; }
+.tabla-horario tr:hover td { background: rgba(168,85,247,.06); }
+.galeria-masonry { columns: 2; column-gap: 1.25rem; }
+@media (min-width: 768px) { .galeria-masonry { columns: 3; } }
+.galeria-item { position: relative; overflow: hidden; border-radius: .75rem; margin-bottom: 1.25rem; break-inside: avoid; display: block; transition: transform .4s ease; background: #121212; }
+.galeria-item img { display: block; width: 100%; height: auto; }
+.galeria-item:hover { transform: scale(1.02); }
+.galeria-item .overlay { position: absolute; inset: 0; background: rgba(0,0,0,.55); opacity: 0; transition: opacity .3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+.galeria-item:hover .overlay { opacity: 1; }
+.parallax-section { position: relative; overflow: hidden; }
+.parallax-bg { position: absolute; inset: -25% 0; background-image: url('../Media/web/parallax-bg.webp'); background-size: cover; background-position: center; will-change: transform; transform: translate3d(0,0,0); }
+.parallax-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.85), rgba(19,19,19,.95)); }
+.video-frame { aspect-ratio: 16/9; width: 100%; object-fit: cover; background: #000; display: block; }
+.pricing-pro { border: 2px solid #a855f7; box-shadow: 0 0 40px rgba(168,85,247,.2); }
+.pricing-pro .price { color: #a855f7; }
+.star { color: #facc15; }
+.footer-link { color: #8f9378; transition: color .2s; }
+.footer-link:hover { color: #a855f7; }
+</style>
+</head>
+<body class="font-body">
+
+<!-- ============ NAVBAR ============ -->
+<nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300">
+  <div class="max-w-6xl mx-auto grid grid-cols-3 items-center px-sm py-sm">
+    <div></div>
+    <div class="hidden md:flex items-center justify-center gap-md">
+      <a href="#inicio" class="nav-link text-[14px] font-medium">Inicio</a>
+      <a href="#clases" class="nav-link text-[14px] font-medium">Clases</a>
+      <a href="#horarios" class="nav-link text-[14px] font-medium">Horarios</a>
+      <a href="#entrenadores" class="nav-link text-[14px] font-medium">Entrenadores</a>
+      <a href="#planes" class="nav-link text-[14px] font-medium">Planes</a>
+      <a href="#testimonios" class="nav-link text-[14px] font-medium">Testimonios</a>
+      <a href="#contacto" class="nav-link text-[14px] font-medium">Contacto</a>
+    </div>
+    <div class="flex items-center justify-end gap-sm">
+      <a href="#planes" class="btn-primary hidden sm:inline-flex text-white font-bold text-[14px] px-md py-sm rounded-lg">Inscr&iacute;bete</a>
+      <button id="menuBtn" class="md:hidden text-on-surface p-xs active:scale-90 transition-transform" aria-label="Men&uacute;">
+        <span class="material-symbols-outlined text-2xl">menu</span>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="md:hidden hidden bg-black border-t border-[#2D2D2D]">
+    <div class="flex flex-col px-md py-sm gap-sm">
+      <a href="#inicio" class="mob-link py-xs text-on-surface-variant font-medium">Inicio</a>
+      <a href="#clases" class="mob-link py-xs text-on-surface-variant font-medium">Clases</a>
+      <a href="#horarios" class="mob-link py-xs text-on-surface-variant font-medium">Horarios</a>
+      <a href="#entrenadores" class="mob-link py-xs text-on-surface-variant font-medium">Entrenadores</a>
+      <a href="#planes" class="mob-link py-xs text-on-surface-variant font-medium">Planes</a>
+      <a href="#testimonios" class="mob-link py-xs text-on-surface-variant font-medium">Testimonios</a>
+      <a href="#contacto" class="mob-link py-xs text-on-surface-variant font-medium">Contacto</a>
+      <a href="#planes" class="btn-primary text-center text-white font-bold text-[14px] px-md py-sm rounded-lg mt-xs">Inscr&iacute;bete</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section id="inicio" class="relative min-h-screen flex items-center overflow-hidden pt-xl">
+  <div class="hero-glow w-[500px] h-[500px] bg-[#a855f7] -top-40 -left-40"></div>
+  <div class="hero-glow w-[420px] h-[420px] bg-[#f97316] top-1/3 -right-32"></div>
+  <div class="hero-glow w-[300px] h-[300px] bg-[#facc15] bottom-0 left-1/3"></div>
+  <div class="max-w-6xl mx-auto px-sm w-full relative z-10 text-center py-xl">
+    <img src="../logo.png" alt="Palmeras Gym" class="h-24 md:h-32 w-auto mx-auto block mb-lg reveal" />
+    <p class="inline-flex items-center gap-xs border border-[#2D2D2D] rounded-full px-md py-xs text-caption text-on-surface-variant uppercase tracking-widest mb-md reveal">
+      <span class="w-2 h-2 rounded-full bg-[#a855f7] inline-block pulse-dot"></span>
+      Abierto 24/7 &middot; Entrena cuando quieras
+    </p>
+    <h1 class="font-display font-black text-5xl md:text-7xl leading-tight mb-md reveal">
+      SUPER&Aacute; TUS<br/>
+      <span class="text-gradient">L&Iacute;MITES</span>
+    </h1>
+    <p class="text-on-surface-variant text-lg max-w-2xl mx-auto mb-lg reveal">
+      En <strong class="text-on-surface">Palmeras Gym</strong> no solo entrenas, transformas tu vida.
+      Equipamiento de alta gama, entrenadores certificados y una comunidad que te impulsa d&iacute;a a d&iacute;a.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-sm mb-xl reveal">
+      <a href="#planes" class="btn-primary text-white font-bold text-[15px] px-lg py-md rounded-lg w-full sm:w-auto">Comenzar ahora</a>
+      <a href="#clases" class="btn-secondary font-bold text-[15px] px-lg py-md rounded-lg w-full sm:w-auto">Ver clases</a>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-md max-w-3xl mx-auto reveal">
+      <div class="card p-md">
+        <p class="stat-number text-3xl text-[#a855f7]">1,200+</p>
+        <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">Miembros</p>
+      </div>
+      <div class="card p-md">
+        <p class="stat-number text-3xl text-[#f97316]">15</p>
+        <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">Entrenadores</p>
+      </div>
+      <div class="card p-md">
+        <p class="stat-number text-3xl text-[#facc15]">40+</p>
+        <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">Clases/semana</p>
+      </div>
+      <div class="card p-md">
+        <p class="stat-number text-3xl text-[#4ade80]">10</p>
+        <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">A&ntilde;os de experiencia</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARACTERISTICAS ============ -->
+<section class="py-2xl bg-surface">
+  <div class="max-w-6xl mx-auto px-sm">
+    <div class="text-center mb-xl reveal">
+      <p class="text-caption text-[#f97316] uppercase tracking-widest font-semibold mb-xs">Por qu&eacute; elegirnos</p>
+      <h2 class="font-display font-bold text-3xl md:text-4xl mb-sm">Todo lo que necesitas, <span class="text-gradient">en un solo lugar</span></h2>
+      <p class="text-on-surface-variant max-w-2xl mx-auto">Instalaciones de primer nivel dise&ntilde;adas para que cada sesi&oacute;n cuente.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+      <div class="card p-md reveal">
+        <div class="w-12 h-12 rounded-lg bg-[#a855f7]/15 text-[#a855f7] flex items-center justify-center mb-sm">
+          <span class="material-symbols-outlined fill text-2xl">fitness_center</span>
+        </div>
+        <h3 class="font-display font-bold text-lg mb-xs">Equipamiento Premium</h3>
+        <p class="text-on-surface-variant text-[14px]">M&aacute;quinas de &uacute;ltima generaci&oacute;n, zona de peso libre y racks de potencia.</p>
+      </div>
+      <div class="card p-md reveal">
+        <div class="w-12 h-12 rounded-lg bg-[#f97316]/15 text-[#f97316] flex items-center justify-center mb-sm">
+          <span class="material-symbols-outlined fill text-2xl">school</span>
+        </div>
+        <h3 class="font-display font-bold text-lg mb-xs">Entrenadores Certificados</h3>
+        <p class="text-on-surface-variant text-[14px]">Rutinas personalizadas y seguimiento constante con profesionales acreditados.</p>
+      </div>
+      <div class="card p-md reveal">
+        <div class="w-12 h-12 rounded-lg bg-[#facc15]/15 text-[#facc15] flex items-center justify-center mb-sm">
+          <span class="material-symbols-outlined fill text-2xl">restaurant_menu</span>
+        </div>
+        <h3 class="font-display font-bold text-lg mb-xs">Nutrici&oacute;n</h3>
+        <p class="text-on-surface-variant text-[14px]">Planes alimenticios dise&ntilde;ados para potenciar tu rendimiento y resultados.</p>
+      </div>
+      <div class="card p-md reveal">
+        <div class="w-12 h-12 rounded-lg bg-[#4ade80]/15 text-[#4ade80] flex items-center justify-center mb-sm">
+          <span class="material-symbols-outlined fill text-2xl">smartphone</span>
+        </div>
+        <h3 class="font-display font-bold text-lg mb-xs">App M&oacute;vil</h3>
+        <p class="text-on-surface-variant text-[14px]">Seguimiento de tu progreso, abonos y rutinas desde tu tel&eacute;fono.</p>
+      </div>
+      <div class="card p-md reveal">
+        <div class="w-12 h-12 rounded-lg bg-[#a855f7]/15 text-[#a855f7] flex items-center justify-center mb-sm">
+          <span class="material-symbols-outlined fill text-2xl">schedule</span>
+        </div>
+        <h3 class="font-display font-bold text-lg mb-xs">Horarios Flexibles</h3>
+        <p class="text-on-surface-variant text-[14px]">Abierto 24/7 para que entrenes a la hora que mejor te funcione.</p>
+      </div>
+      <div class="card p-md reveal">
+        <div class="w-12 h-12 rounded-lg bg-[#f97316]/15 text-[#f97316] flex items-center justify-center mb-sm">
+          <span class="material-symbols-outlined fill text-2xl">groups</span>
+        </div>
+        <h3 class="font-display font-bold text-lg mb-xs">Comunidad Activa</h3>
+        <p class="text-on-surface-variant text-[14px]">Eventos, retos y una comunidad que te motiva a no rendirte.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLASES ============ -->
+<section id="clases" class="py-2xl">
+  <div class="max-w-6xl mx-auto px-sm">
+    <div class="text-center mb-xl reveal">
+      <p class="text-caption text-[#f97316] uppercase tracking-widest font-semibold mb-xs">Nuestras clases</p>
+      <h2 class="font-display font-bold text-3xl md:text-4xl mb-sm">Entrenamiento para <span class="text-gradient">todos los objetivos</span></h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+      <div class="card overflow-hidden reveal">
+        <div class="h-40 bg-gradient-to-br from-[#7c3aed] to-[#a855f7] flex items-center justify-center">
+          <span class="material-symbols-outlined fill text-6xl text-white/90">barbell</span>
+        </div>
+        <div class="p-md">
+          <span class="category-badge fuerza">Fuerza</span>
+          <h3 class="font-display font-bold text-xl mt-xs">Powerlifting</h3>
+          <p class="text-on-surface-variant text-[14px] mt-xs">Sentadilla, press banca y peso muerto para construir fuerza real.</p>
+        </div>
+      </div>
+      <div class="card overflow-hidden reveal">
+        <div class="h-40 bg-gradient-to-br from-[#f97316] to-[#fdba74] flex items-center justify-center">
+          <span class="material-symbols-outlined fill text-6xl text-white/90">directions_run</span>
+        </div>
+        <div class="p-md">
+          <span class="category-badge cardio">Cardio</span>
+          <h3 class="font-display font-bold text-xl mt-xs">HIIT &amp; Cardio</h3>
+          <p class="text-on-surface-variant text-[14px] mt-xs">Quema calor&iacute;as y mejora tu resistencia en sesiones intensas.</p>
+        </div>
+      </div>
+      <div class="card overflow-hidden reveal">
+        <div class="h-40 bg-gradient-to-br from-[#facc15] to-[#a855f7] flex items-center justify-center">
+          <span class="material-symbols-outlined fill text-6xl text-white/90">self_improvement</span>
+        </div>
+        <div class="p-md">
+          <span class="category-badge flexibilidad">Flexibilidad</span>
+          <h3 class="font-display font-bold text-xl mt-xs">Yoga &amp; Movilidad</h3>
+          <p class="text-on-surface-variant text-[14px] mt-xs">Mejora tu flexibilidad, equilibrio y recuperaci&oacute;n muscular.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HORARIOS ============ -->
+<section id="horarios" class="py-2xl bg-surface">
+  <div class="max-w-4xl mx-auto px-sm">
+    <div class="text-center mb-xl reveal">
+      <p class="text-caption text-[#f97316] uppercase tracking-widest font-semibold mb-xs">Horarios</p>
+      <h2 class="font-display font-bold text-3xl md:text-4xl mb-sm">Clases <span class="text-gradient">de lunes a s&aacute;bado</span></h2>
+    </div>
+    <div class="card overflow-x-auto reveal">
+      <table class="tabla-horario w-full text-on-surface">
+        <thead>
+          <tr class="border-b border-[#2D2D2D]">
+            <th>Horario</th>
+            <th>Lunes</th>
+            <th>Mi&eacute;rcoles</th>
+            <th>Viernes</th>
+            <th>S&aacute;bado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-[#a855f7] font-semibold">07:00 - 08:00</td>
+            <td>Powerlifting</td>
+            <td>HIIT</td>
+            <td>Powerlifting</td>
+            <td>Yoga</td>
+          </tr>
+          <tr>
+            <td class="text-[#f97316] font-semibold">17:00 - 18:00</td>
+            <td>HIIT</td>
+            <td>Powerlifting</td>
+            <td>Yoga</td>
+            <td>HIIT</td>
+          </tr>
+          <tr>
+            <td class="text-[#facc15] font-semibold">19:00 - 20:00</td>
+            <td>Yoga</td>
+            <td>Cardio</td>
+            <td>HIIT</td>
+            <td>Cardio</td>
+          </tr>
+          <tr>
+            <td class="text-[#4ade80] font-semibold">20:00 - 21:00</td>
+            <td>Cardio</td>
+            <td>Yoga</td>
+            <td>Cardio</td>
+            <td>Powerlifting</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ENTRENADORES ============ -->
+<section id="entrenadores" class="py-2xl">
+  <div class="max-w-6xl mx-auto px-sm">
+    <div class="text-center mb-xl reveal">
+      <p class="text-caption text-[#f97316] uppercase tracking-widest font-semibold mb-xs">Equipo</p>
+      <h2 class="font-display font-bold text-3xl md:text-4xl mb-sm">Entrenadores que <span class="text-gradient">te impulsan</span></h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-lg">
+      <div class="card p-md text-center reveal">
+        <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-[#a855f7] to-[#7c3aed] flex items-center justify-center mb-sm">
+          <span class="material-symbols-outlined fill text-4xl text-white">face</span>
+        </div>
+        <h3 class="font-display font-bold">Carlos M&eacute;ndez</h3>
+        <p class="text-caption text-[#f97316] uppercase tracking-widest mt-xs">Head Coach &middot; Fuerza</p>
+      </div>
+      <div class="card p-md text-center reveal">
+        <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-[#f97316] to-[#fdba74] flex items-center justify-center mb-sm">
+          <span class="material-symbols-outlined fill text-4xl text-white">face</span>
+        </div>
+        <h3 class="font-display font-bold">Laura P&eacute;rez</h3>
+        <p class="text-caption text-[#f97316] uppercase tracking-widest mt-xs">Cardio &amp; HIIT</p>
+      </div>
+      <div class="card p-md text-center reveal">
+        <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-[#facc15] to-[#a855f7] flex items-center justify-center mb-sm">
+          <span class="material-symbols-outlined fill text-4xl text-white">face</span>
+        </div>
+        <h3 class="font-display font-bold">Ana Torres</h3>
+        <p class="text-caption text-[#f97316] uppercase tracking-widest mt-xs">Yoga &amp; Movilidad</p>
+      </div>
+      <div class="card p-md text-center reveal">
+        <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-[#4ade80] to-[#16a34a] flex items-center justify-center mb-sm">
+          <span class="material-symbols-outlined fill text-4xl text-white">face</span>
+        </div>
+        <h3 class="font-display font-bold">Diego Rojas</h3>
+        <p class="text-caption text-[#f97316] uppercase tracking-widest mt-xs">Nutrici&oacute;n</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERIA ============ -->
+<section id="galeria" class="py-2xl bg-surface">
+  <div class="max-w-6xl mx-auto px-sm">
+    <div class="text-center mb-xl reveal">
+      <p class="text-caption text-[#f97316] uppercase tracking-widest font-semibold mb-xs">Instalaciones</p>
+      <h2 class="font-display font-bold text-3xl md:text-4xl mb-sm">Nuestras <span class="text-gradient">instalaciones</span></h2>
+    </div>
+    <div class="galeria-masonry">
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_01.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_02.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_03.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_04.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_05.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_06.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_07.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_08.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_09.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_10.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_11.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_12.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_13.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_14.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_15.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_16.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_17.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_18.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+      <div class="galeria-item reveal">
+        <img src="../Media/web/photo_19.webp" alt="Palmeras Gym - Instalaciones" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="material-symbols-outlined text-3xl text-white">zoom_in</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VIDEOS (PARALLAX) ============ -->
+<section id="videos" class="parallax-section py-2xl">
+  <div class="parallax-bg"></div>
+  <div class="parallax-overlay"></div>
+  <div class="max-w-6xl mx-auto px-sm relative z-10">
+    <div class="text-center mb-xl reveal">
+      <p class="text-caption text-[#f97316] uppercase tracking-widest font-semibold mb-xs">Videos</p>
+      <h2 class="font-display font-bold text-3xl md:text-4xl mb-sm">Conoce el gimnasio <span class="text-gradient">en movimiento</span></h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+      <div class="card overflow-hidden reveal">
+        <video controls playsinline preload="none" poster="../Media/web/photo_06.webp" class="video-frame">
+          <source src="../Media/web/video-1.mp4" type="video/mp4"/>
+        </video>
+      </div>
+      <div class="card overflow-hidden reveal">
+        <video controls playsinline preload="none" poster="../Media/web/photo_14.webp" class="video-frame">
+          <source src="../Media/web/video-2.mp4" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLANES ============ -->
+<section id="planes" class="py-2xl">
+  <div class="max-w-5xl mx-auto px-sm">
+    <div class="text-center mb-xl reveal">
+      <p class="text-caption text-[#f97316] uppercase tracking-widest font-semibold mb-xs">Membres&iacute;as</p>
+      <h2 class="font-display font-bold text-3xl md:text-4xl mb-sm">Elige tu <span class="text-gradient">plan ideal</span></h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-lg items-stretch">
+      <div class="card p-lg flex flex-col reveal">
+        <h3 class="font-display font-bold text-xl">B&aacute;sico</h3>
+        <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">Para empezar</p>
+        <p class="font-display font-black text-4xl mt-md">$15<span class="text-caption text-on-surface-variant font-medium">/mes</span></p>
+        <ul class="mt-md space-y-xs flex-1 text-[14px] text-on-surface-variant">
+          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Acceso en horas valle</li>
+          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Zona de pesas y cardio</li>
+          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>1 clase grupal/semana</li>
+          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>App m&oacute;vil</li>
+        </ul>
+        <a href="#contacto" class="btn-outline text-center mt-lg py-sm rounded-lg font-bold text-[14px]">Elegir plan</a>
+      </div>
+      <div class="card p-lg flex flex-col pricing-pro reveal">
+        <span class="self-start category-badge fuerza mb-xs">M&aacute;s popular</span>
+        <h3 class="font-display font-bold text-xl">Pro</h3>
+        <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">El favorito</p>
+        <p class="font-display font-black text-4xl price mt-md">$25<span class="text-caption text-on-surface-variant font-medium">/mes</span></p>
+        <ul class="mt-md space-y-xs flex-1 text-[14px] text-on-surface-variant">
+          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Acceso 24/7</li>
+          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Todas las clases grupales</li>
+          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Rutina personalizada</li>
+          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>App m&oacute;vil + seguimiento</li>
+          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Invitado 1 vez/mes</li>
+        </ul>
+        <a href="#contacto" class="btn-primary text-center text-white mt-lg py-sm rounded-lg font-bold text-[14px]">Elegir Pro</a>
+      </div>
+      <div class="card p-lg flex flex-col reveal">
+        <h3 class="font-display font-bold text-xl">Premium</h3>
+        <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">M&aacute;ximo nivel</p>
+        <p class="font-display font-black text-4xl mt-md">$40<span class="text-caption text-on-surface-variant font-medium">/mes</span></p>
+        <ul class="mt-md space-y-xs flex-1 text-[14px] text-on-surface-variant">
+          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Todo lo del plan Pro</li>
+          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Entrenador personal 2x/semana</li>
+          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Plan nutricional completo</li>
+          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Acceso a zona recuperaci&oacute;n</li>
+        </ul>
+        <a href="#contacto" class="btn-outline text-center mt-lg py-sm rounded-lg font-bold text-[14px]">Elegir Premium</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIOS ============ -->
+<section id="testimonios" class="py-2xl bg-surface">
+  <div class="max-w-5xl mx-auto px-sm">
+    <div class="text-center mb-xl reveal">
+      <p class="text-caption text-[#f97316] uppercase tracking-widest font-semibold mb-xs">Testimonios</p>
+      <h2 class="font-display font-bold text-3xl md:text-4xl mb-sm">Historias que <span class="text-gradient">nos motivan</span></h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+      <div class="card p-md reveal">
+        <div class="flex gap-xs mb-sm">
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+        </div>
+        <p class="text-[14px] text-on-surface-variant mb-md">&quot;Baj&eacute; 15 kilos en 6 meses. Los entrenadores y el ambiente hacen la diferencia.&quot;</p>
+        <p class="font-display font-bold">Mar&iacute;a Fernanda</p>
+        <p class="text-caption text-on-surface-variant uppercase tracking-widest">Miembro desde 2023</p>
+      </div>
+      <div class="card p-md reveal">
+        <div class="flex gap-xs mb-sm">
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+        </div>
+        <p class="text-[14px] text-on-surface-variant mb-md">&quot;El plan Pro con entrenador personal cambi&oacute; mi forma de entrenar. Vale cada peso.&quot;</p>
+        <p class="font-display font-bold">Jorge Luis</p>
+        <p class="text-caption text-on-surface-variant uppercase tracking-widest">Miembro Pro</p>
+      </div>
+      <div class="card p-md reveal">
+        <div class="flex gap-xs mb-sm">
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+          <span class="material-symbols-outlined fill star text-lg">star</span>
+        </div>
+        <p class="text-[14px] text-on-surface-variant mb-md">&quot;Gracias a la app m&oacute;vil puedo seguir mi progreso desde casa. Incre&iacute;ble atenci&oacute;n.&quot;</p>
+        <p class="font-display font-bold">Luc&iacute;a</p>
+        <p class="text-caption text-on-surface-variant uppercase tracking-widest">Miembro desde 2024</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA APP ============ -->
+<section class="py-2xl">
+  <div class="max-w-4xl mx-auto px-sm">
+    <div class="card p-xl text-center relative overflow-hidden reveal">
+      <div class="hero-glow w-[300px] h-[300px] bg-[#a855f7] -top-20 -right-20"></div>
+      <div class="hero-glow w-[300px] h-[300px] bg-[#f97316] -bottom-20 -left-20"></div>
+      <div class="relative z-10">
+        <span class="material-symbols-outlined fill text-6xl text-[#a855f7] mb-sm inline-block">smartphone</span>
+        <h2 class="font-display font-bold text-3xl mb-sm">Lleva tu gimnasio <span class="text-gradient">en el bolsillo</span></h2>
+        <p class="text-on-surface-variant max-w-lg mx-auto mb-lg">Descarga la app m&oacute;vil de Palmeras Gym y gestiona tu abono, rutinas y progreso desde tu tel&eacute;fono.</p>
+        <a href="../Movil/movil.html" class="btn-primary inline-flex items-center gap-xs text-white font-bold text-[15px] px-lg py-md rounded-lg">
+          <span class="material-symbols-outlined">download</span> Descargar app m&oacute;vil
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACTO ============ -->
+<section id="contacto" class="py-2xl bg-surface">
+  <div class="max-w-5xl mx-auto px-sm">
+    <div class="text-center mb-xl reveal">
+      <p class="text-caption text-[#f97316] uppercase tracking-widest font-semibold mb-xs">Contacto</p>
+      <h2 class="font-display font-bold text-3xl md:text-4xl mb-sm">Ven a <span class="text-gradient">conocernos</span></h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+      <div class="card p-lg reveal">
+        <h3 class="font-display font-bold text-lg mb-md">Informaci&oacute;n</h3>
+        <div class="space-y-md">
+          <div class="flex items-start gap-sm">
+            <span class="material-symbols-outlined text-[#a855f7]">location_on</span>
+            <div>
+              <p class="font-semibold text-[14px]">Direcci&oacute;n</p>
+              <p class="text-on-surface-variant text-[14px]">Av. Palmeras 123, Zona Centro</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-sm">
+            <span class="material-symbols-outlined text-[#a855f7]">call</span>
+            <div>
+              <p class="font-semibold text-[14px]">Tel&eacute;fono</p>
+              <p class="text-on-surface-variant text-[14px]">+52 555 123 4567</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-sm">
+            <span class="material-symbols-outlined text-[#a855f7]">mail</span>
+            <div>
+              <p class="font-semibold text-[14px]">Correo</p>
+              <p class="text-on-surface-variant text-[14px]">contacto@palmerasgym.com</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-sm">
+            <span class="material-symbols-outlined text-[#a855f7]">schedule</span>
+            <div>
+              <p class="font-semibold text-[14px]">Horario</p>
+              <p class="text-on-surface-variant text-[14px]">Lunes a Domingo &middot; 24/7</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card p-lg reveal">
+        <h3 class="font-display font-bold text-lg mb-md">Env&iacute;anos un mensaje</h3>
+        <form onsubmit="return handleForm(event)" class="space-y-sm">
+          <input type="text" placeholder="Nombre" required class="w-full bg-surface-container-low border border-outline-variant rounded-lg py-sm px-sm text-[14px] focus:outline-none focus:border-[#a855f7]"/>
+          <input type="email" placeholder="Correo" required class="w-full bg-surface-container-low border border-outline-variant rounded-lg py-sm px-sm text-[14px] focus:outline-none focus:border-[#a855f7]"/>
+          <textarea placeholder="Mensaje" rows="4" required class="w-full bg-surface-container-low border border-outline-variant rounded-lg py-sm px-sm text-[14px] focus:outline-none focus:border-[#a855f7]"></textarea>
+          <button type="submit" class="btn-primary w-full text-white font-bold text-[14px] py-sm rounded-lg">Enviar mensaje</button>
+          <p id="formMsg" class="text-center text-[#4ade80] text-[14px] hidden">Gracias por escribirnos. Te contactaremos pronto.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="py-xl border-t border-[#2D2D2D]">
+  <div class="max-w-6xl mx-auto px-sm">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-md mb-lg">
+      <div class="flex items-center gap-xs">
+        <img src="../logo_header.png" alt="Palmeras Gym" class="h-14 w-auto block" />
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-md">
+        <a href="#inicio" class="footer-link text-[13px]">Inicio</a>
+        <a href="#clases" class="footer-link text-[13px]">Clases</a>
+        <a href="#horarios" class="footer-link text-[13px]">Horarios</a>
+        <a href="#planes" class="footer-link text-[13px]">Planes</a>
+        <a href="#contacto" class="footer-link text-[13px]">Contacto</a>
+      </div>
+    </div>
+    <div class="border-t border-[#2D2D2D] pt-md flex flex-col md:flex-row items-center justify-between gap-sm">
+      <p class="text-caption text-on-surface-variant">© 2026 Palmeras Gym. Todos los derechos reservados.</p>
+      <p class="text-caption text-on-surface-variant">Desarrollado por <span class="text-[#a855f7] font-semibold">GIGA Computers</span></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 40) navbar.classList.add('nav-scrolled');
+  else navbar.classList.remove('nav-scrolled');
+});
+
+// Mobile menu
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+menuBtn.addEventListener('click', function() {
+  mobileMenu.classList.toggle('hidden');
+});
+document.querySelectorAll('.mob-link').forEach(function(link) {
+  link.addEventListener('click', function() {
+    mobileMenu.classList.add('hidden');
+  });
+});
+
+// Parallax background
+const parallaxBg = document.querySelector('.parallax-bg');
+if (parallaxBg) {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced) {
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          const rect = parallaxBg.parentElement.getBoundingClientRect();
+          const offset = rect.top * 0.28;
+          parallaxBg.style.transform = 'translate3d(0,' + offset + 'px,0)';
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+}
+
+// Reveal on scroll
+const revealObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(function(el) {
+  revealObserver.observe(el);
+});
+
+// Contact form
+function handleForm(e) {
+  e.preventDefault();
+  e.target.reset();
+  const msg = document.getElementById('formMsg');
+  msg.classList.remove('hidden');
+  setTimeout(function() { msg.classList.add('hidden'); }, 4000);
+  return false;
+}
+</script>
+</body>
+</html>
