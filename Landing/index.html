@@ -97,6 +97,7 @@ body { background: #000; color: #e4e2e1; font-family: 'Inter', sans-serif; overf
     <div></div>
     <div class="hidden md:flex items-center justify-center gap-md">
       <a href="#inicio" class="nav-link text-[14px] font-medium">Inicio</a>
+      <a href="#nosotros" class="nav-link text-[14px] font-medium">Nosotros</a>
       <a href="#clases" class="nav-link text-[14px] font-medium">Clases</a>
       <a href="#horarios" class="nav-link text-[14px] font-medium">Horarios</a>
       <a href="#entrenadores" class="nav-link text-[14px] font-medium">Entrenadores</a>
@@ -114,6 +115,7 @@ body { background: #000; color: #e4e2e1; font-family: 'Inter', sans-serif; overf
   <div id="mobileMenu" class="md:hidden hidden bg-black border-t border-[#2D2D2D]">
     <div class="flex flex-col px-md py-sm gap-sm">
       <a href="#inicio" class="mob-link py-xs text-on-surface-variant font-medium">Inicio</a>
+      <a href="#nosotros" class="mob-link py-xs text-on-surface-variant font-medium">Nosotros</a>
       <a href="#clases" class="mob-link py-xs text-on-surface-variant font-medium">Clases</a>
       <a href="#horarios" class="mob-link py-xs text-on-surface-variant font-medium">Horarios</a>
       <a href="#entrenadores" class="mob-link py-xs text-on-surface-variant font-medium">Entrenadores</a>
@@ -165,6 +167,23 @@ body { background: #000; color: #e4e2e1; font-family: 'Inter', sans-serif; overf
         <p class="stat-number text-3xl text-[#4ade80]">10</p>
         <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">A&ntilde;os de experiencia</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NOSOTROS ============ -->
+<section id="nosotros" class="py-2xl">
+  <div class="max-w-6xl mx-auto px-sm">
+    <div class="text-center mb-xl reveal">
+      <p class="text-caption text-[#f97316] uppercase tracking-widest font-semibold mb-xs">Nosotros</p>
+      <h2 class="font-display font-bold text-3xl md:text-4xl mb-sm">TU GIMNASIO, <span class="text-gradient">TU LUGAR</span></h2>
+    </div>
+    <div class="max-w-3xl mx-auto space-y-md text-on-surface-variant text-[15px] leading-relaxed reveal">
+      <p>Desde febrero de 2018, Gimnasio Palmeras abrió sus puertas en Caballito, con una idea clara: no ser solo un gimnasio, sino un espacio de encuentro, motivación y pertenencia.</p>
+      <p>Somos un gimnasio de barrio, con alma de club. Nos mueve el compromiso de acompañar a cada socio en su camino, respetando sus tiempos, metas y necesidades.</p>
+      <p>Acá nos conocemos, nos saludamos por el nombre, nos alentamos. No importa si venís a entrenar fuerte o a empezar de a poco: Palmeras es tu lugar.</p>
+      <p>Con entrenadores cercanos, un ambiente relajado y buena energía, Palmeras es más que un lugar para hacer ejercicio: es una comunidad.</p>
+      <p>Te esperamos para que formes parte de esto que, con mucho orgullo, fuimos construyendo entre todos.</p>
     </div>
   </div>
 </section>
@@ -478,44 +497,46 @@ body { background: #000; color: #e4e2e1; font-family: 'Inter', sans-serif; overf
       <p class="text-caption text-[#f97316] uppercase tracking-widest font-semibold mb-xs">Membres&iacute;as</p>
       <h2 class="font-display font-bold text-3xl md:text-4xl mb-sm">Elige tu <span class="text-gradient">plan ideal</span></h2>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-lg items-stretch">
+    <div class="card p-md mb-lg flex items-center justify-center gap-sm reveal">
+      <span class="category-badge fuerza">D&eacute;bito autom&aacute;tico</span>
+      <p class="text-[14px] text-on-surface-variant">Abonando con d&eacute;bito autom&aacute;tico: <span class="font-display font-black text-[#a855f7] text-xl">$27.000/mes</span></p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg items-stretch">
       <div class="card p-lg flex flex-col reveal">
-        <h3 class="font-display font-bold text-xl">B&aacute;sico</h3>
-        <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">Para empezar</p>
-        <p class="font-display font-black text-4xl mt-md">$15<span class="text-caption text-on-surface-variant font-medium">/mes</span></p>
-        <ul class="mt-md space-y-xs flex-1 text-[14px] text-on-surface-variant">
-          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Acceso en horas valle</li>
-          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Zona de pesas y cardio</li>
-          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>1 clase grupal/semana</li>
-          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>App m&oacute;vil</li>
-        </ul>
+        <h3 class="font-display font-bold text-xl">1 MES</h3>
+        <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">Musculaci&oacute;n</p>
+        <p class="font-display font-black text-4xl mt-md">$36.500<span class="text-caption text-on-surface-variant font-medium">/mes</span></p>
+        <div class="mt-md space-y-xs flex-1 text-[14px] text-on-surface-variant">
+          <p class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Con d&eacute;bito autom&aacute;tico: <span class="font-bold text-[#a855f7]">$30.000</span></p>
+        </div>
         <a href="#contacto" class="btn-outline text-center mt-lg py-sm rounded-lg font-bold text-[14px]">Elegir plan</a>
       </div>
-      <div class="card p-lg flex flex-col pricing-pro reveal">
-        <span class="self-start category-badge fuerza mb-xs">M&aacute;s popular</span>
-        <h3 class="font-display font-bold text-xl">Pro</h3>
-        <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">El favorito</p>
-        <p class="font-display font-black text-4xl price mt-md">$25<span class="text-caption text-on-surface-variant font-medium">/mes</span></p>
-        <ul class="mt-md space-y-xs flex-1 text-[14px] text-on-surface-variant">
-          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Acceso 24/7</li>
-          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Todas las clases grupales</li>
-          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Rutina personalizada</li>
-          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>App m&oacute;vil + seguimiento</li>
-          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Invitado 1 vez/mes</li>
-        </ul>
-        <a href="#contacto" class="btn-primary text-center text-white mt-lg py-sm rounded-lg font-bold text-[14px]">Elegir Pro</a>
+      <div class="card p-lg flex flex-col reveal">
+        <h3 class="font-display font-bold text-xl">3 MESES</h3>
+        <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">Musculaci&oacute;n</p>
+        <p class="font-display font-black text-4xl mt-md">$104.000<span class="text-caption text-on-surface-variant font-medium">/mes</span></p>
+        <div class="mt-md space-y-xs flex-1 text-[14px] text-on-surface-variant">
+          <p class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Con d&eacute;bito autom&aacute;tico: <span class="font-bold text-[#a855f7]">$87.000</span></p>
+        </div>
+        <a href="#contacto" class="btn-outline text-center mt-lg py-sm rounded-lg font-bold text-[14px]">Elegir plan</a>
       </div>
       <div class="card p-lg flex flex-col reveal">
-        <h3 class="font-display font-bold text-xl">Premium</h3>
-        <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">M&aacute;ximo nivel</p>
-        <p class="font-display font-black text-4xl mt-md">$40<span class="text-caption text-on-surface-variant font-medium">/mes</span></p>
-        <ul class="mt-md space-y-xs flex-1 text-[14px] text-on-surface-variant">
-          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Todo lo del plan Pro</li>
-          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Entrenador personal 2x/semana</li>
-          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Plan nutricional completo</li>
-          <li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Acceso a zona recuperaci&oacute;n</li>
-        </ul>
-        <a href="#contacto" class="btn-outline text-center mt-lg py-sm rounded-lg font-bold text-[14px]">Elegir Premium</a>
+        <h3 class="font-display font-bold text-xl">6 MESES</h3>
+        <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">Musculaci&oacute;n</p>
+        <p class="font-display font-black text-4xl mt-md">$193.000<span class="text-caption text-on-surface-variant font-medium">/mes</span></p>
+        <div class="mt-md space-y-xs flex-1 text-[14px] text-on-surface-variant">
+          <p class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Con d&eacute;bito autom&aacute;tico: <span class="font-bold text-[#a855f7]">$160.000</span></p>
+        </div>
+        <a href="#contacto" class="btn-outline text-center mt-lg py-sm rounded-lg font-bold text-[14px]">Elegir plan</a>
+      </div>
+      <div class="card p-lg flex flex-col reveal">
+        <h3 class="font-display font-bold text-xl">12 MESES</h3>
+        <p class="text-caption text-on-surface-variant uppercase tracking-widest mt-xs">Musculaci&oacute;n</p>
+        <p class="font-display font-black text-4xl mt-md">$347.000<span class="text-caption text-on-surface-variant font-medium">/mes</span></p>
+        <div class="mt-md space-y-xs flex-1 text-[14px] text-on-surface-variant">
+          <p class="flex items-center gap-xs"><span class="material-symbols-outlined text-[#4ade80] text-lg">check</span>Con d&eacute;bito autom&aacute;tico: <span class="font-bold text-[#a855f7]">$287.000</span></p>
+        </div>
+        <a href="#contacto" class="btn-outline text-center mt-lg py-sm rounded-lg font-bold text-[14px]">Elegir plan</a>
       </div>
     </div>
   </div>
@@ -602,28 +623,37 @@ body { background: #000; color: #e4e2e1; font-family: 'Inter', sans-serif; overf
             <span class="material-symbols-outlined text-[#a855f7]">location_on</span>
             <div>
               <p class="font-semibold text-[14px]">Direcci&oacute;n</p>
-              <p class="text-on-surface-variant text-[14px]">Av. Palmeras 123, Zona Centro</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-sm">
-            <span class="material-symbols-outlined text-[#a855f7]">call</span>
-            <div>
-              <p class="font-semibold text-[14px]">Tel&eacute;fono</p>
-              <p class="text-on-surface-variant text-[14px]">+52 555 123 4567</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-sm">
-            <span class="material-symbols-outlined text-[#a855f7]">mail</span>
-            <div>
-              <p class="font-semibold text-[14px]">Correo</p>
-              <p class="text-on-surface-variant text-[14px]">contacto@palmerasgym.com</p>
+              <p class="text-on-surface-variant text-[14px]">Av. Directorio 888</p>
             </div>
           </div>
           <div class="flex items-start gap-sm">
             <span class="material-symbols-outlined text-[#a855f7]">schedule</span>
             <div>
               <p class="font-semibold text-[14px]">Horario</p>
-              <p class="text-on-surface-variant text-[14px]">Lunes a Domingo &middot; 24/7</p>
+              <p class="text-on-surface-variant text-[14px]">Lun a Vie &middot; 6.00 - 24.00</p>
+              <p class="text-on-surface-variant text-[14px]">S&aacute;b y Dom &middot; 7.00 - 19.00</p>
+              <p class="text-on-surface-variant text-[14px]">Feriados &middot; 10.00 - 17.00</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-sm">
+            <span class="material-symbols-outlined text-[#a855f7]">chat</span>
+            <div>
+              <p class="font-semibold text-[14px]">WhatsApp</p>
+              <a href="https://wa.me/5491164396054" class="footer-link text-[14px]">011 6439-6054</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-sm">
+            <span class="material-symbols-outlined text-[#a855f7]">thumb_up</span>
+            <div>
+              <p class="font-semibold text-[14px]">Facebook</p>
+              <a href="https://facebook.com/gimnasiopalmeras" class="footer-link text-[14px]">/gimnasiopalmeras</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-sm">
+            <span class="material-symbols-outlined text-[#a855f7]">photo_camera</span>
+            <div>
+              <p class="font-semibold text-[14px]">Instagram</p>
+              <a href="https://instagram.com/gimnasioPalmeras" class="footer-link text-[14px]">@GimnasioPalmeras</a>
             </div>
           </div>
         </div>
@@ -651,6 +681,7 @@ body { background: #000; color: #e4e2e1; font-family: 'Inter', sans-serif; overf
       </div>
       <div class="flex flex-wrap items-center justify-center gap-md">
         <a href="#inicio" class="footer-link text-[13px]">Inicio</a>
+        <a href="#nosotros" class="footer-link text-[13px]">Nosotros</a>
         <a href="#clases" class="footer-link text-[13px]">Clases</a>
         <a href="#horarios" class="footer-link text-[13px]">Horarios</a>
         <a href="#planes" class="footer-link text-[13px]">Planes</a>
