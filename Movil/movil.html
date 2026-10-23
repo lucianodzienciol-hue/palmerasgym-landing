@@ -190,28 +190,31 @@ function getEmbedUrl(url) {
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6) }
 function getPreviewData(key) { return JSON.parse(localStorage.getItem('preview_' + key) || 'null'); }
 function setPreviewData(key, data) { localStorage.setItem('preview_' + key, JSON.stringify(data)); }
+function phoneKey(value) { return String(value || '').replace(/\D/g, '').slice(-10); }
 
 // ── GitHub Pages sync: fetch data.json from repo raw URL ──
-(function loadFromGitHubPages() {
-  if (window.location.hostname.includes('github.io') || window.location.hostname.includes('pages.github')) {
-    fetch('https://raw.githubusercontent.com/palmerasgymapp-png/Palmeras-App/master/data/data.json')
-      .then(r => r.ok ? r.json() : Promise.reject('not ok'))
-      .then(data => {
-        if (data.exercises && data.exercises.length) setPreviewData('exercises', data.exercises);
-        if (data.routines && data.routines.length) setPreviewData('routines', data.routines);
-        if (data.clients && data.clients.length) setPreviewData('clients', data.clients);
-        if (data.weekly_schedules) {
-          const byClient = {};
-          data.weekly_schedules.forEach(s => {
-            if (!byClient[s.client_id]) byClient[s.client_id] = [];
-            byClient[s.client_id].push({ day_of_week: s.day_of_week, routine_id: s.routine_id });
-          });
-          setPreviewData('weekly', byClient);
-        }
-        if (data.workout_logs) setPreviewData('workouts', data.workout_logs);
-      })
-      .catch(() => {}); // fallback to mock data below
-  }
+const remoteDataReady = (function loadFromGitHubPages() {
+  const host = window.location.hostname;
+  const isLocal = host === 'localhost' || host === '127.0.0.1' || host === '[::1]' ||
+    /^(192\.168\.|10\.|172\.(1[6-9]|2\d|3[01])\.)/.test(host);
+  if (isLocal) return Promise.resolve();
+  return fetch('https://raw.githubusercontent.com/palmerasgymapp-png/Palmeras-App/master/data/data.json', { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : Promise.reject('not ok'))
+    .then(data => {
+      if (data.exercises && data.exercises.length) setPreviewData('exercises', data.exercises);
+      if (data.routines && data.routines.length) setPreviewData('routines', data.routines);
+      if (data.clients && data.clients.length) setPreviewData('clients', data.clients);
+      if (data.weekly_schedules) {
+        const byClient = {};
+        data.weekly_schedules.forEach(s => {
+          if (!byClient[s.client_id]) byClient[s.client_id] = [];
+          byClient[s.client_id].push({ day_of_week: s.day_of_week, routine_id: s.routine_id });
+        });
+        setPreviewData('weekly', byClient);
+      }
+      if (data.workout_logs) setPreviewData('workouts', data.workout_logs);
+    })
+    .catch(() => {}); // fallback to mock data below
 })();
 
 // ── Mock data ──
@@ -392,16 +395,15 @@ function showLogin() {
 async function submitClientId() {
   const raw = document.getElementById('clientIdInput').value.trim();
   if (!raw) { document.getElementById('clientIdError').textContent = 'Ingresa tu número de teléfono'; document.getElementById('clientIdError').classList.remove('hidden'); return; }
-  // Normalize: remove non-digits
-  const digits = raw.replace(/\D/g, '');
-  if (digits.length < 7) { document.getElementById('clientIdError').textContent = 'Número inválido. Debe tener al menos 7 dígitos.'; document.getElementById('clientIdError').classList.remove('hidden'); return; }
-  // Search by phone (exact match on last 10 digits, or full match)
-  const clients = getPreviewData('clients') || [];
-  let found = clients.find(c => {
-    if (!c.phone) return false;
-    const cDigits = c.phone.replace(/\D/g, '');
-    return cDigits === digits || cDigits.endsWith(digits) || digits.endsWith(cDigits);
-  });
+  // Normalize: keep the last 10 digits (handles +52, spaces, dashes and country code)
+  const digits = phoneKey(raw);
+  if (digits.length < 10) { document.getElementById('clientIdError').textContent = 'Número inválido. Ingresa al menos 10 dígitos.'; document.getElementById('clientIdError').classList.remove('hidden'); return; }
+  await remoteDataReady;
+  // Search the real clients from the server (api falls back to localStorage when offline)
+  const clients = await api('/api/clients');
+  if (Array.isArray(clients) && clients.length) setPreviewData('clients', clients);
+  const list = Array.isArray(clients) ? clients : [];
+  let found = list.find(c => c.phone && phoneKey(c.phone) === digits);
   if (!found) {
     document.getElementById('clientIdError').textContent = 'Número no encontrado. ¿Estás registrado en el gimnasio?';
     document.getElementById('clientIdError').classList.remove('hidden');
@@ -982,6 +984,7 @@ document.getElementById('btnLogout').addEventListener('click', logout);
 
 // ── Init ──
 async function boot() {
+  await remoteDataReady;
   // Check URL param
   const params = new URLSearchParams(window.location.search);
   const urlClient = params.get('client');

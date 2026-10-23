@@ -1,4 +1,4 @@
-const CACHE = 'palmeras-gym-v1';
+const CACHE = 'palmeras-gym-v2';
 const PRECACHE = [
   'movil.html',
   'manifest.json',
